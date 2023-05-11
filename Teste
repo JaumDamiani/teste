@@ -1,0 +1,6852 @@
+// Parâmetros do Expert Advisor
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar ações de venda
+        
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            currentProfit[0] = profit;
+        }
+    }
+}
+
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar ações de venda
+        double lots = 1.0;
+        double price = Bid;
+        double stopLoss = price + StopLoss * Point;
+        double takeProfit = price - TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_SELL, lots, price, 3, stopLoss, takeProfit, "Sell", MagicNumber, 0, Red);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (openPrice - closePrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+           
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar ações de venda
+        double lots = 1.0;
+        double price = Bid;
+        double stopLoss = price + StopLoss * Point;
+        double takeProfit = price - TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_SELL, lots, price, 3, stopLoss, takeProfit, "Sell", MagicNumber, 0, Red);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (openPrice - closePrice)
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar ações de venda
+        double lots = 1.0;
+        double price = Bid;
+        double stopLoss = price + StopLoss * Point;
+        double takeProfit = price - TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_SELL, lots, price, 3, stopLoss, takeProfit, "Sell", MagicNumber, 0, Red);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (openPrice - closePrice
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar ações de venda
+        double lots = 1.0;
+        double price = Bid;
+        double stopLoss = price + StopLoss * Point;
+        double takeProfit = price - TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_SELL, lots, price, 3, stopLoss, takeProfit, "Sell", MagicNumber, 0, Red);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (openPrice
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar ações de venda
+        double lots = 1.0;
+        double price = Bid;
+        double stopLoss = price + StopLoss * Point;
+        double takeProfit = price - TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_SELL, lots, price, 3, stopLoss, takeProfit, "Sell", MagicNumber, 0, Red);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+           
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar ações de venda
+        double lots = 1.0;
+        double price = Bid;
+        double stopLoss = price + StopLoss * Point;
+        double takeProfit = price - TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_SELL, lots, price, 3, stopLoss, takeProfit, "Sell", MagicNumber, 0, Red);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar ações de venda
+        double lots = 1.0;
+        double price = Bid;
+        double stopLoss = price + StopLoss * Point;
+        double takeProfit = price - TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_SELL, lots, price, 3, stopLoss, takeProfit, "Sell", MagicNumber, 0, Red);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+           
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar ações de venda
+        double lots = 1.0;
+        double price = Bid;
+        double stopLoss = price + StopLoss * Point;
+        double takeProfit = price - TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_SELL, lots, price, 3, stopLoss, takeProfit, "Sell", MagicNumber, 0, Red);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar ações de venda
+        double lots = 1.0;
+        double price = Bid;
+        double stopLoss = price + StopLoss * Point;
+        double takeProfit = price - TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_SELL, lots, price, 3, stopLoss, takeProfit, "Sell", MagicNumber, 0, Red);
+
+       
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar ações de venda
+        double lots = 1.0;
+        double price = Bid;
+        double stopLoss = price + StopLoss * Point;
+        double takeProfit = price - TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_SELL, lots, price, 3, stopLoss, takeProfit,
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar ações de venda
+        double lots = 1.0;
+        double price = Bid;
+        double stopLoss = price + StopLoss * Point;
+        double takeProfit = price - TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_SELL, lots, price, 3,
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar ações de venda
+        double lots = 1.0;
+        double price = Bid;
+        double stopLoss = price + StopLoss * Point;
+        double takeProfit = price - TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_SELL
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar ações de venda
+        double lots = 1.0;
+        double price = Bid;
+        double stopLoss = price + StopLoss * Point;
+        double takeProfit = price - TakeProfit * Point;
+        int ticket = OrderSend(Symbol
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar ações de venda
+        double lots = 1.0;
+        double price = Bid;
+        double stopLoss = price + StopLoss * Point;
+        double takeProfit = price - TakeProfit * Point;
+        int ticket = Order
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar ações de venda
+        double lots = 1.0;
+        double price = Bid;
+        double stopLoss = price + StopLoss * Point;
+       
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar ações de venda
+        double lots = 1.0;
+        double price = Bid;
+        double stopLoss = price + StopLoss * Point;
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar ações de venda
+        double lots = 1.0;
+        double price = Bid;
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar ações de venda
+        double lots = 1.0;
+       
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar ações de venda
+        double lots = 1.0;
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar ações de venda
+       
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else if (isSellSignal)
+    {
+        // Executar açõ
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+    else
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+            currentProfit[0] = profit;
+        }
+    }
+   
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE_TICKVALUE);
+           
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - openPrice) * lots * MarketInfo(Symbol(), MODE
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit = (closePrice - open
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+            double profit =
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+           
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+            double closePrice = OrderClosePrice();
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+            double openPrice = OrderOpenPrice();
+           
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+           
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+        if (ticket > 0)
+        {
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+        // Calcular o lucro atual
+       
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+       
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss, takeProfit, "Buy", MagicNumber, 0, Green);
+
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 3, stopLoss,
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_BUY, lots, price, 
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP_B
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+        int ticket = OrderSend(Symbol(), OP
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double takeProfit = price + TakeProfit * Point;
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+        double take
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stopLoss = price - StopLoss * Point;
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+        double stop
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+        double price = Ask;
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+        double lots = 1.0;
+       
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+       
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar ações de compra
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+        // Executar a
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+       
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+    if (isBuySignal)
+    {
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condições de entrada
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+    // Executar ações com base nas condiç
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 30);
+
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower) && (currentRSI < 
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal = (currentSMA < currentBBLower
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+    bool isSellSignal
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+   
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI > 70);
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper) && (currentRSI >
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > currentBBUpper)
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA > current
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA >
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal = (currentSMA
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal =
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+    bool isBuySignal
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condições de entrada
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+    // Condi
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_LOWER, 0);
+
+   
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB, deviationBB, 0,
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB,
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 0, periodBB
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands(NULL, 
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower = iBands
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double currentBBLower =
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+    double
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+   
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0, PRICE_CLOSE, MODE_UPPER, 0);
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 0,
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0, periodBB, deviationBB, 
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = iBands(NULL, 0,
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper = i
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper =
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double currentBBUpper
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+    double
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+   
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0, periodRSI, PRICE_CLOSE, 0);
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL, 0,
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI(NULL,
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRSI
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI = iRS
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+    double currentRSI
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0);
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE_SMA, PRICE_CLOSE, 0
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0, MODE
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0,
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA, 0
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA,
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL, 0, periodSMA
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA = iMA(NULL,
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double currentSMA =
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+    double
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+   
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar condições de entrada
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Verificar
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+    // Ver
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+   
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void OnTick()
+{
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contínua do Expert Advisor
+void
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução contín
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de execução
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Função de
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+// Fun
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+//
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+    // Limpar recursos e encerrar o Expert Advisor
+}
+
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+   
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de encerramento do Expert Advisor
+void deinit()
+{
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Função de enc
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+// Fun
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+//
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED);
+}
+
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "Lucro");
+
+    return (INIT_SUCCEEDED
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0, "")
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0,
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    SetIndexLabel(0
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+    Set
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+   
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit);
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, currentProfit
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer(0, current
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndexBuffer
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+    SetIndex
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+   
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW_LINE);
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle(0, DRAW
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+    SetIndexStyle
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+   
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador personalizado
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações do indicador
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configurações
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Definir as configuraç
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Defin
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    // Def
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+    //
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+   
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initialBalance = AccountBalance();
+
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+    initial
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+   
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+    // Obter o saldo inicial da conta
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+   
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicialização do Expert Advisor
+int init()
+{
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de inicial
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Função de
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Funçã
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+// Fun
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+//
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double currentProfit[];
+
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+double current
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initialBalance;
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+double initial
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis globais
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis glob
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+// Variáveis
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+//
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern int MagicNumber = 12345;
+
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+extern
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200;
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+extern double TakeProfit = 200
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double StopLoss = 100;
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+extern double Stop
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern double deviationBB = 2.0;
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+extern
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+extern int periodBB = 20;
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+
+
+extern int periodSMA = 14;
+extern int periodRSI = 14;
+
+extern int periodSMA = 14;
+extern int periodRS
+
+extern int periodSMA = 14;
+
+
+extern int periodSMA = 14;
+
+}
